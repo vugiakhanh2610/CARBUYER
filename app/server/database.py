@@ -13,10 +13,10 @@ car_collection = database.get_collection("car_collection")
 def car_helper(car) -> dict:
     return {
         "id": str(car["_id"]),
-        "name": car["name"],
-        "img": car["img"],
-        "description": car["description"],
-        "price": car["price"],
+        "name": str(car["name"]),
+        "img": str(car["img"]),
+        "description": str(car["description"]),
+        "price": int(car["price"]),
     }
 
 # Get all cars
@@ -59,7 +59,7 @@ async def update_car(id: str, data: dict):
 
 
 # Delete a car by id
-async def delete_student(id: str):
+async def delete_car(id: str):
     car = await car_collection.find_one({"_id": ObjectId(id)})
     if car:
         await car_collection.delete_one({"_id": ObjectId(id)})

@@ -1,9 +1,9 @@
 from typing import Optional
 
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, Field
 
 
-class StudentSchema(BaseModel):
+class CarSchema(BaseModel):
     name: str = Field(...)
     img: str = Field(...)
     description: str = Field(...)
@@ -20,7 +20,7 @@ class StudentSchema(BaseModel):
         }
 
 
-class UpdateStudentModel(BaseModel):
+class UpdateCarModel(BaseModel):
     name: Optional[str]
     img: Optional[str]
     description: Optional[str]
