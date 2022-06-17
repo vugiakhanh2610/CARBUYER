@@ -37,7 +37,7 @@ class UpdateCarModel(BaseModel):
         }
 
 
-def ResponseModel(data, message):
+def ResponseCarModel(data, message):
     return {
         "data": [data],
         "code": 200,
@@ -45,5 +45,5 @@ def ResponseModel(data, message):
     }
 
 
-def ErrorResponseModel(error, code, message):
+def ErrorResponseCarModel(error, code, message):
     return {"error": error, "code": code, "message": message}
