@@ -12,7 +12,7 @@ class BrandSchema(BaseModel):
         schema_extra = {
             "example": {
                 "name": "Mercedes-Benz",
-                "img": "https://ucars-bucket.s3-ap-southeast-1.amazonaws.com/images/17766641601649743680410.PNG",
+                "logo": "https://ucars-bucket.s3-ap-southeast-1.amazonaws.com/images/17766641601649743680410.PNG",
                 "retailer": "Cycle & Carriage Industries"
             }
         }
@@ -27,7 +27,7 @@ class UpdateBrandModel(BaseModel):
         schema_extra = {
             "example": {
                 "name": "Mercedes-Benz",
-                "img": "https://ucars-bucket.s3-ap-southeast-1.amazonaws.com/images/17766641601649743680410.PNG",
+                "logo": "https://ucars-bucket.s3-ap-southeast-1.amazonaws.com/images/17766641601649743680410.PNG",
                 "retailer": "Cycle & Carriage Industries"
             }
         }
