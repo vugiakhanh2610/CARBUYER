@@ -30,6 +30,12 @@ async def get_brand_data_by_id(id):
     return ErrorResponseBrandModel("An error occurred.", 404, "brand not found !")
 
 
+@router.get("/search/", response_description="Search brands by keyword")
+async def search_brand(query: str):
+    brands = await search_brand_by_keyword(query)
+    return ResponseBrandModel(brands, "Get brands by keyword")
+
+
 @router.put("/{id}")
 async def update_brand_data(id: str, req: UpdateBrandModel = Body(...)):
     req = {k: v for k, v in req.dict().items() if v is not None}

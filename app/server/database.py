@@ -35,7 +35,6 @@ def brand_helper(brand) -> dict:
 
 
 # Car
-
 # Get all cars
 async def get_cars():
     cars = []
@@ -57,29 +56,25 @@ async def get_car_by_id(id: str) -> dict:
     if car:
         return car_helper(car)
 
+
 # Get cars by brand name
-
-
 async def get_car_by_brand(name: str) -> dict:
     cars = []
     async for car in car_collection.find({"name_brand": name}):
         cars.append(car_helper(car))
     return cars
 
+
 # Seach cars
-
-
-async def search_by_keyword(query: str) -> dict:
+async def search_car_by_keyword(query: str) -> dict:
     cars = []
     async for car in car_collection.find({"$or": [{"name": {"$regex": query, '$options': 'i'}}, {"name_brand": {"$regex": query, '$options': 'i'}}]}):
         cars.append(car_helper(car))
     return cars
 
-# Update a car with a matching ID
 
-
+# Update a car with a matching id
 async def update_car(id: str, data: dict):
-    # Return false if an empty request body is sent.
     if len(data) < 1:
         return False
     car = await car_collection.find_one({"_id": ObjectId(id)})
@@ -144,3 +139,11 @@ async def delete_brand(id: str):
     if brand:
         await brand_collection.delete_one({"_id": ObjectId(id)})
         return True
+
+
+# Search brand
+async def search_brand_by_keyword(query: str) -> dict:
+    brands = []
+    async for brand in brand_collection.find({"$or": [{"name": {"$regex": query, '$options': 'i'}}, {"retailer": {"$regex": query, '$options': 'i'}}]}):
+        brands.append(brand_helper(brand))
+    return brands

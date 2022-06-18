@@ -38,9 +38,9 @@ async def get_car_data_by_brand(name):
     return ResponseCarModel(cars, "Empty list returned !")
 
 
-@router.get("/search", response_description="Search cars by keyword")
+@router.get("/search/car", response_description="Search cars by keyword")
 async def search_car(query: str):
-    cars = await search_by_keyword(query)
+    cars = await search_car_by_keyword(query)
     return ResponseCarModel(cars, "Get cars by keyword")
 
 
