@@ -6,9 +6,6 @@ from bson.objectid import ObjectId
 MONGO_DETAILS = "mongodb+srv://outperform:abC26102003@demo.ymvmn.mongodb.net/carbuyer?retryWrites=true&w=majority"
 
 client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_DETAILS)
-# client = pymongo.MongoClient(
-#     "mongodb+srv://outperform:<password>@demo.ymvmn.mongodb.net/?retryWrites=true&w=majority")
-# db = client.test
 
 database = client.carbuyer
 

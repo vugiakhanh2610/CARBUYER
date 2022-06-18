@@ -1,1 +1,1 @@
-web: uvicorn app.server.app:app --host localhost --port=8080
+web: uvicorn app.server.app:app --host=localhost --port=8080
