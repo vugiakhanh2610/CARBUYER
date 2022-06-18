@@ -8,6 +8,7 @@ fastapi = "*"
 uvicorn = "*"
 motor = "*"
 autopep8 = "*"
+pymongo = {extras = ["srv"], version = "*"}
 
 [dev-packages]
 
