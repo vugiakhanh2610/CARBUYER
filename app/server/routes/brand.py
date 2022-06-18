@@ -7,30 +7,30 @@ from server.models.brand import *
 router = APIRouter()
 
 
-@router.post("/", response_description="Brand's data added into the database")
+@router.post("/")
 async def add_brand_data(brand: BrandSchema = Body(...)):
     brand = jsonable_encoder(brand)
     new_brand = await add_brand(brand)
-    return ResponseBrandModel(new_brand, "brand added successfully.")
+    return ResponseBrandModel(new_brand, "Brand added successfully.")
 
 
-@router.get("/", response_description="Get all brands")
+@router.get("/")
 async def get_brands_data():
     brands = await get_brands()
     if brands:
-        return ResponseBrandModel(brands, "Get all brands's data successfully")
+        return ResponseBrandModel(brands, "Get all brands successfully")
     return ResponseBrandModel(brands, "Empty list returned !")
 
 
-@router.get("/{id}", response_description="Get brand by id")
+@router.get("/{id}")
 async def get_brand_data_by_id(id):
     brand = await get_brand(id)
     if brand:
         return ResponseBrandModel(brand, "Get brand by id successfully")
-    return ErrorResponseBrandModel("An error occurred.", 404, "brand not found !")
+    return ErrorResponseBrandModel("An error occurred.", 404, f"Brand with id {id} doesn't exist")
 
 
-@router.get("/search/", response_description="Search brands by keyword")
+@router.get("/search/")
 async def search_brand(query: str):
     brands = await search_brand_by_keyword(query)
     return ResponseBrandModel(brands, "Get brands by keyword")
@@ -39,11 +39,11 @@ async def search_brand(query: str):
 @router.put("/{id}")
 async def update_brand_data(id: str, req: UpdateBrandModel = Body(...)):
     req = {k: v for k, v in req.dict().items() if v is not None}
-    updated_brand = await update_brand(id, req)
-    if updated_brand:
+    condition = await update_brand(id, req)
+    if condition:
         return ResponseBrandModel(
-            updated_brand,
-            "brand updated successfully"
+            condition,
+            "Brand updated successfully"
         )
     return ErrorResponseBrandModel(
         "An error occurred",
@@ -52,13 +52,13 @@ async def update_brand_data(id: str, req: UpdateBrandModel = Body(...)):
     )
 
 
-@router.delete("/{id}", response_description="brand's data deleted")
+@router.delete("/{id}")
 async def delete_brand_data(id: str):
-    deleted_brand = await delete_brand(id)
-    if deleted_brand:
+    condition = await delete_brand(id)
+    if condition:
         return ResponseBrandModel(
-            deleted_brand, "brand deleted successfully"
+            condition, "Brand deleted successfully"
         )
     return ErrorResponseBrandModel(
-        "An error occurred", 404, f"brand with id {id} doesn't exist"
+        "An error occurred", 404, f"Brand with id {id} doesn't exist"
     )

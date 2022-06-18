@@ -1,3 +1,4 @@
+from pickle import FALSE
 import motor.motor_asyncio
 from bson.objectid import ObjectId
 
@@ -11,9 +12,8 @@ database = client.carbuyer
 car_collection = database.get_collection("car_collection")
 brand_collection = database.get_collection("brand_collection")
 
+
 # Helper function
-
-
 def car_helper(car) -> dict:
     return {
         "id": str(car["_id"]),
@@ -85,6 +85,7 @@ async def update_car(id: str, data: dict):
         if updated_car:
             return True
         return False
+    return FALSE
 
 
 # Delete a car by id
@@ -93,6 +94,7 @@ async def delete_car(id: str):
     if car:
         await car_collection.delete_one({"_id": ObjectId(id)})
         return True
+    return False
 
 
 # Brand
@@ -131,6 +133,7 @@ async def update_brand(id: str, data: dict):
         if updated_brand:
             return True
         return False
+    return FALSE
 
 
 # Delete a brand by id
@@ -139,6 +142,7 @@ async def delete_brand(id: str):
     if brand:
         await brand_collection.delete_one({"_id": ObjectId(id)})
         return True
+    return FALSE
 
 
 # Search brand

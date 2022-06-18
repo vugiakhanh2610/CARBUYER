@@ -42,7 +42,7 @@ class UpdateCarModel(BaseModel):
 
 def ResponseCarModel(data, message):
     return {
-        "data": [data],
+        "data": data,
         "code": 200,
         "message": message,
     }

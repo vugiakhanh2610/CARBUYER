@@ -7,14 +7,14 @@ from server.models.car import *
 router = APIRouter()
 
 
-@router.post("/car", response_description="Car's data added into the database")
+@router.post("/car")
 async def add_car_data(car: CarSchema = Body(...)):
     car = jsonable_encoder(car)
     new_car = await add_car(car)
     return ResponseCarModel(new_car, "Car added successfully.")
 
 
-@router.get("/cars", response_description="Get all cars")
+@router.get("/cars")
 async def get_cars_data():
     cars = await get_cars()
     if cars:
@@ -22,15 +22,15 @@ async def get_cars_data():
     return ResponseCarModel(cars, "Empty list returned !")
 
 
-@router.get("/car/{id}", response_description="Get car by id")
+@router.get("/car/{id}")
 async def get_car_data_by_id(id):
     car = await get_car_by_id(id)
     if car:
         return ResponseCarModel(car, "Get car by id successfully")
-    return ErrorResponseCarModel("An error occurred.", 404, "Car not found !")
+    return ErrorResponseCarModel("An error occurred.", 404, f"Car with id {id} doesn't exist")
 
 
-@router.get("/cars/{name}", response_description="Get car by brand name")
+@router.get("/cars/{name}")
 async def get_car_data_by_brand(name):
     cars = await get_car_by_brand(name)
     if cars:
@@ -38,7 +38,7 @@ async def get_car_data_by_brand(name):
     return ResponseCarModel(cars, "Empty list returned !")
 
 
-@router.get("/search/car", response_description="Search cars by keyword")
+@router.get("/car/search/")
 async def search_car(query: str):
     cars = await search_car_by_keyword(query)
     return ResponseCarModel(cars, "Get cars by keyword")
@@ -47,10 +47,10 @@ async def search_car(query: str):
 @router.put("/car/{id}")
 async def update_Car_data(id: str, req: UpdateCarModel = Body(...)):
     req = {k: v for k, v in req.dict().items() if v is not None}
-    updated_car = await update_car(id, req)
-    if updated_car:
+    condition = await update_car(id, req)
+    if condition:
         return ResponseCarModel(
-            updated_car,
+            condition,
             "Car updated successfully"
         )
     return ErrorResponseCarModel(
@@ -60,12 +60,12 @@ async def update_Car_data(id: str, req: UpdateCarModel = Body(...)):
     )
 
 
-@router.delete("/car/{id}", response_description="Car's data deleted")
+@router.delete("/car/{id}")
 async def delete_car_data(id: str):
-    deleted_car = await delete_car(id)
-    if deleted_car:
+    condition = await delete_car(id)
+    if condition:
         return ResponseCarModel(
-            deleted_car, "Car deleted successfully"
+            condition, "Car deleted successfully"
         )
     return ErrorResponseCarModel(
         "An error occurred", 404, f"Car with id {id} doesn't exist"
