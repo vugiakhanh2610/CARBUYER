@@ -8,6 +8,7 @@ class CarSchema(BaseModel):
     img: str = Field(...)
     description: str = Field(...)
     price: int = Field(...)
+    name_brand: str = Field(...)
 
     class Config:
         schema_extra = {
@@ -16,6 +17,7 @@ class CarSchema(BaseModel):
                 "img": "https://assets.ucars.sg/image/upload/c_fit,f_auto,w_400/v1/s3/images/17036899401655374905899_wm.png",
                 "description": "1 Owner, C&C Unit, Under Warranty, Low Mileage With Fully Agent Maintain Record. Electric Seat.",
                 "price": 124_800,
+                "name_brand": "Mercedes-Benz"
             }
         }
 
@@ -33,6 +35,7 @@ class UpdateCarModel(BaseModel):
                 "img": "https://assets.ucars.sg/image/upload/c_fit,f_auto,w_400/v1/s3/images/17036899401655374905899_wm.png",
                 "description": "1 Owner, C&C Unit, Under Warranty, Low Mileage With Fully Agent Maintain Record. Electric Seat.",
                 "price": 124_800,
+                "name_brand": "Mercedes-Benz"
             }
         }
 

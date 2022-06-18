@@ -21,6 +21,7 @@ def car_helper(car) -> dict:
         "img": str(car["img"]),
         "description": str(car["description"]),
         "price": int(car["price"]),
+        "name_brand": str(car["name_brand"]),
     }
 
 
@@ -51,13 +52,32 @@ async def add_car(car_data: dict) -> dict:
 
 
 # Get car by id
-async def get_car(id: str) -> dict:
+async def get_car_by_id(id: str) -> dict:
     car = await car_collection.find_one({"_id": ObjectId(id)})
     if car:
         return car_helper(car)
 
+# Get cars by brand name
+
+
+async def get_car_by_brand(name: str) -> dict:
+    cars = []
+    async for car in car_collection.find({"name_brand": name}):
+        cars.append(car_helper(car))
+    return cars
+
+# Seach cars
+
+
+async def search_by_keyword(query: str) -> dict:
+    cars = []
+    async for car in car_collection.find({"$or": [{"name": {"$regex": query, '$options': 'i'}}, {"name_brand": {"$regex": query, '$options': 'i'}}]}):
+        cars.append(car_helper(car))
+    return cars
 
 # Update a car with a matching ID
+
+
 async def update_car(id: str, data: dict):
     # Return false if an empty request body is sent.
     if len(data) < 1:
