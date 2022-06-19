@@ -86,7 +86,7 @@ async def update_car(id: str, data: dict):
         if updated_car:
             return True
         return False
-    return FALSE
+    return False
 
 
 # Delete a car by id
@@ -134,7 +134,7 @@ async def update_brand(id: str, data: dict):
         if updated_brand:
             return True
         return False
-    return FALSE
+    return False
 
 
 # Delete a brand by id
@@ -143,7 +143,7 @@ async def delete_brand(id: str):
     if brand:
         await brand_collection.delete_one({"_id": ObjectId(id)})
         return True
-    return FALSE
+    return False
 
 
 # Search brand
