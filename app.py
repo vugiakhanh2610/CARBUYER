@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.server.routes.car import router as CarRouter
-from app.server.routes.brand import router as BrandRouter
+from server.routes.car import router as CarRouter
+from server.routes.brand import router as BrandRouter
 
 app = FastAPI()
 origins = [
